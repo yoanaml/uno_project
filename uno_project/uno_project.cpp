@@ -14,6 +14,7 @@ const int COLORS_COUNT = 4;
 const int NUMBERS_COUNT = 10;
 const int INITIAL_DECK_SIZE = 108;
 const int WILD_CARDS_COUNT = 4;
+const int MAX_CARD_LENGTH = 10;
 
 char deck[MAX_CARDS][MAX_CARD_LENGTH];
 int deckSize = INITIAL_DECK_SIZE;
@@ -55,7 +56,6 @@ void strconcat(char* dest, const char* src) {
 
     dest[i] = '\0';
 }
-
 
 void createDeck() {
     int k = 0;
@@ -112,6 +112,23 @@ void createDeck() {
     }
 }
 
+void shuffleDeck()
+{
+    random_device rd;   
+    mt19937 g(rd());    
+
+    
+    for (int i = deckSize - 1; i > 0; i--) {
+        uniform_int_distribution<int> dist(0, i);
+        int j = dist(g);
+
+        
+        char temp[MAX_CARD_LENGTH];
+        strcp(temp, deck[i]);
+        strcp(deck[i], deck[j]);
+        strcp(deck[j], temp);
+    }
+}
 
 
 int main()
