@@ -2,6 +2,9 @@
 //Yoana Mladenova fn4MI0600631
 
 #include <iostream>
+#include <algorithm> 
+#include <random>    
+#include <ctime>     
 
 int main()
 {
