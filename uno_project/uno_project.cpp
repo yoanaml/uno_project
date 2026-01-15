@@ -131,6 +131,26 @@ void shuffleDeck()
 }
 
 
+int isPlus2(const char* card) {
+    return card[1] == '+' && card[2] == '2';
+}
+int isReverse(const char* card) {
+    return card[1] == 'R'; // Reverse
+}
+int isWild(const char* card)
+{
+    return streq(card, "Wild");
+}
+int isWildPlusFour(const char* card)
+{
+    return streq(card, "Wild+4");
+}
+int isSkip(const char* card)
+{
+    return card[1] == 'S';
+}
+
+
 int main()
 {
    
