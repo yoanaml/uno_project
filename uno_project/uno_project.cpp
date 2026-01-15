@@ -214,6 +214,30 @@ bool isValidMove(const char* card, const char* topCard, char currentColor)
     return false;
 }
 
+const int MAX_PLAYERS = 4;
+const int COUNT_OF_CARDS_PER_PLAYER = 7;
+char players[MAX_PLAYERS][MAX_CARDS][MAX_CARD_LENGTH]; 
+int cardsCount[MAX_PLAYERS];                           
+int playersCount;
+
+void dealCards(int playersCount)
+{
+    
+    for (int p = 0; p < playersCount; p++) {
+        cardsCount[p] = 0;
+    }
+
+    for (int i = 0; i < COUNT_OF_CARDS_PER_PLAYER; i++) {
+        for (int p = 0; p < playersCount; p++) {
+            
+            strcp(players[p][cardsCount[p]], deck[deckSize - 1]);
+            cardsCount[p]++;
+
+            deckSize--; 
+        }
+    }
+}
+
 
 int main()
 {
