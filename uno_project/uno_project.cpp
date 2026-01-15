@@ -175,6 +175,45 @@ void drawStartingCard()
     }
 }
 
+const int COLOR_INDEX = 0;
+const int TYPE_INDEX = 1;
+
+bool isValidMove(const char* card, const char* topCard, char currentColor)
+{
+   
+    if (card[COLOR_INDEX] == 'W')
+        return true;
+
+    
+    if (currentColor != '\0') {
+        return card[COLOR_INDEX] == currentColor;
+    }
+
+   
+    if (card[COLOR_INDEX] == topCard[COLOR_INDEX])
+        return true;
+
+    
+    if (card[TYPE_INDEX] >= '0' && card[TYPE_INDEX] <= '9' &&
+        topCard[TYPE_INDEX] >= '0' && topCard[TYPE_INDEX] <= '9' &&
+        card[TYPE_INDEX] == topCard[TYPE_INDEX])
+        return true;
+
+   
+    if (card[TYPE_INDEX] == '+' && topCard[TYPE_INDEX] == '+')
+        return true;
+
+    
+    if (card[TYPE_INDEX] == 'R' && topCard[TYPE_INDEX] == 'R')
+        return true;
+
+    
+    if (card[TYPE_INDEX] == 'S' && topCard[TYPE_INDEX] == 'S')
+        return true;
+
+    return false;
+}
+
 
 int main()
 {
