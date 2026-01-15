@@ -5,6 +5,21 @@
 #include <algorithm> 
 #include <random>    
 #include <ctime> 
+using namespace std;
+
+
+const int MAX_CARDS = 108;
+const int MAX_CARD_LENGTH = 10;
+const int COLORS_COUNT = 4;
+const int NUMBERS_COUNT = 10;
+const int INITIAL_DECK_SIZE = 108;
+const int WILD_CARDS_COUNT = 4;
+
+char deck[MAX_CARDS][MAX_CARD_LENGTH];
+int deckSize = INITIAL_DECK_SIZE;
+
+char discardPile[MAX_CARDS][MAX_CARD_LENGTH];
+int discardSize = 0;
 
 int streq(const char* a, const char* b) {
     int i = 0;
@@ -40,6 +55,64 @@ void strconcat(char* dest, const char* src) {
 
     dest[i] = '\0';
 }
+
+
+void createDeck() {
+    int k = 0;
+    char colors[COLORS_COUNT] = { 'R','G','B','Y' };
+
+   
+    for (int c = 0; c < COLORS_COUNT; c++) {
+
+        deck[k][0] = colors[c];
+        deck[k][1] = '0';
+        deck[k][2] = '\0';
+        k++;
+
+        for (int n = 1; n < NUMBERS_COUNT; n++) {
+            deck[k][0] = colors[c];
+            deck[k][1] = '0' + n;
+            deck[k][2] = '\0';
+            k++;
+
+            deck[k][0] = colors[c];
+            deck[k][1] = '0' + n;
+            deck[k][2] = '\0';
+            k++;
+        }
+    }
+
+    
+    for (int c = 0; c < COLORS_COUNT; c++) {
+        char temp[MAX_CARD_LENGTH];
+
+        temp[0] = colors[c];
+        temp[1] = '\0';
+        strconcat(temp, "+2");
+        strcp(deck[k++], temp);
+        strcp(deck[k++], temp);
+
+        temp[0] = colors[c];
+        temp[1] = '\0';
+        strconcat(temp, "Skip");
+        strcp(deck[k++], temp);
+        strcp(deck[k++], temp);
+
+        temp[0] = colors[c];
+        temp[1] = '\0';
+        strconcat(temp, "Reverse");
+        strcp(deck[k++], temp);
+        strcp(deck[k++], temp);
+    }
+
+    
+    for (int i = 0; i < WILD_CARDS_COUNT; i++) {
+        strcp(deck[k++], "Wild");
+        strcp(deck[k++], "Wild+4");
+    }
+}
+
+
 
 int main()
 {
