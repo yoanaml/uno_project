@@ -151,6 +151,31 @@ int isSkip(const char* card)
 }
 
 
+char currentCard[MAX_CARD_LENGTH];
+
+void drawStartingCard()
+{
+    while (true) {
+        strcp(currentCard, deck[deckSize - 1]);
+        deckSize--;
+
+        
+        if (isWild(currentCard) || isWildPlusFour(currentCard) ||
+            isPlus2(currentCard) || isReverse(currentCard) || isSkip(currentCard)) {
+            strcp(deck[deckSize], currentCard);
+            deckSize++;
+            shuffleDeck();
+        }
+        else {
+            
+            strcp(discardPile[discardSize], currentCard);
+            discardSize++;
+            break;
+        }
+    }
+}
+
+
 int main()
 {
    
