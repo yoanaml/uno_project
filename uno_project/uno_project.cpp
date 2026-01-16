@@ -352,6 +352,18 @@ void refillDeckFromDiscard() {
     shuffleDeck();
 }
 
+void drawCard(int player) {
+    if (deckSize == 0) {
+        refillDeckFromDiscard();
+    }
+
+    strcp(players[player][cardsCount[player]], deck[deckSize - 1]);
+    cardsCount[player]++;
+    deckSize--;
+
+    cout << "Drawn card: " << players[player][cardsCount[player] - 1] << endl;
+}
+
 
 int main()
 {
