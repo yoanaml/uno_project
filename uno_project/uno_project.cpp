@@ -238,6 +238,12 @@ void dealCards(int playersCount)
     }
 }
 
+int nextPlayerIndex(int currentPlayer, int direction, int playersCount)
+{
+    return (currentPlayer + direction + playersCount) % playersCount;
+}
+
+
 
 int main()
 {
