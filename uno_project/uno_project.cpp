@@ -332,6 +332,27 @@ void setupGame()
 }
 
 
+bool isDeckEmpty() {
+    return deckSize == 0;
+}
+
+void refillDeckFromDiscard() {
+    cout << "Deck empty! Shuffling discard pile into deck..." << endl;
+
+    
+    deckSize = discardSize - 1;
+    for (int i = 0; i < deckSize; i++) {
+        strcp(deck[i], discardPile[i]);
+    }
+
+   
+    discardSize = 1;
+    strcp(discardPile[0], currentCard);
+
+    shuffleDeck();
+}
+
+
 int main()
 {
    
