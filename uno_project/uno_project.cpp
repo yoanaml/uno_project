@@ -243,6 +243,51 @@ int nextPlayerIndex(int currentPlayer, int direction, int playersCount)
     return (currentPlayer + direction + playersCount) % playersCount;
 }
 
+void actionReverse(int& direction)
+{
+    direction *= -1;
+}
+void actionSkip(int currentPlayer, int direction, int playersCount, int& nextPlayer)
+{
+    nextPlayer = nextPlayerIndex(currentPlayer, direction, playersCount);
+}
+void actionPlusTwo(int currentPlayer, int direction, int playersCount)
+{
+    int next = nextPlayerIndex(currentPlayer, direction, playersCount);
+
+   
+    for (int i = 0; i < 2; i++) {
+        strcp(players[next][cardsCount[next]], deck[deckSize - 1]);
+        cardsCount[next]++;
+        deckSize--;
+    }
+
+
+}
+
+char currentColor = '\0';
+
+void actionWild(char& currentColor)
+{
+    cout << "Choose color (R/G/B/Y): ";
+    cin >> currentColor;
+}
+void actionWildPlusFour(int currentPlayer, int direction, int playersCount, char& currentColor)
+{
+    int next = (currentPlayer + direction + playersCount) % playersCount;
+
+   
+    for (int i = 0; i < 4; i++) {
+        strcp(players[next][cardsCount[next]], deck[deckSize - 1]);
+        cardsCount[next]++;
+        deckSize--;
+    }
+
+    cout << "Choose color (R/G/B/Y): ";
+    cin >> currentColor;
+}
+
+
 
 
 int main()
