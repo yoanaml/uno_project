@@ -287,7 +287,49 @@ void actionWildPlusFour(int currentPlayer, int direction, int playersCount, char
     cin >> currentColor;
 }
 
+void printPlayerCards(int player) //играча на позиция  0,1,2,3
 
+{
+    cout << "\nPlayer " << player + 1 << " - Your cards:\n";
+    for (int i = 0; i < cardsCount[player]; i++) {
+        cout << "[" << i << "] " << players[player][i] << " ";
+    }
+    cout << endl;
+}
+void printCurrentCard(char* currentCard)
+{
+    cout << "\n---UNO---";
+    cout << "\nCurrent card: " << currentCard << endl;
+
+    if (currentColor != '\0') {
+        cout << "Current color (from Wild): " << currentColor << endl;
+    }
+}
+
+const int MIN_PLAYERS = 2;
+const int MAX_PLAYERS = 4;
+
+void readPlayersCount()
+{
+    do {
+        cout << "Enter number of players ("
+            << MIN_PLAYERS << "-" << MAX_PLAYERS << "): ";
+        cin >> playersCount;
+
+        if (playersCount < MIN_PLAYERS || playersCount > MAX_PLAYERS) {
+            cout << "Invalid number of players. Try again.\n";
+        }
+
+    } while (playersCount < MIN_PLAYERS || playersCount > MAX_PLAYERS);
+}
+void setupGame()
+{
+    readPlayersCount();     
+    createDeck();           
+    shuffleDeck();          
+    dealCards(playersCount);
+    drawStartingCard();     
+}
 
 
 int main()
