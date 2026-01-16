@@ -364,6 +364,19 @@ void drawCard(int player) {
     cout << "Drawn card: " << players[player][cardsCount[player] - 1] << endl;
 }
 
+void playCard(int player, int cardIndex) {
+   
+    strcp(currentCard, players[player][cardIndex]);
+    strcp(discardPile[discardSize], currentCard);
+    discardSize++;
+
+    for (int i = cardIndex; i < cardsCount[player] - 1; i++) {
+        strcp(players[player][i], players[player][i + 1]);
+    }
+
+    cardsCount[player]--;
+}
+
 
 int main()
 {
