@@ -49,7 +49,7 @@
 - Може да се играе само валидна карта
 - Специалните карти прилагат ефектите си автоматично
 - Ако имаш само една карта, извикай "UNO"
-  <img width="600" height="200" alt="image" src="https://github.com/user-attachments/assets/41845691-65e1-459f-a312-f2950222afca" />
+  <img width="600" height="260" alt="image" src="https://github.com/user-attachments/assets/41845691-65e1-459f-a312-f2950222afca" />
 
 ## Структура на файловете
 - uno_project.cpp    → Основният код на играта
