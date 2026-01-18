@@ -584,7 +584,9 @@ void runGame()
 
 int main()
 {
-    
+    setupGame();
+    runGame();
+    return 0;
 }
 
 
