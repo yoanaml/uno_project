@@ -87,13 +87,13 @@ int readInt() {
 	while (true) {
 		cin >> number;
 
-		if (cin.fail()) {  
-			cin.clear(); 
+		if (cin.fail()) {
+			cin.clear();
 			cin.ignore(1000, '\n');
 			cout << "Invalid input! Please enter a number: ";
 		}
 		else {
-			cin.ignore(1000, '\n'); 
+			cin.ignore(1000, '\n');
 			return number;
 		}
 	}
@@ -156,7 +156,7 @@ void createDeck() {
 
 void shuffleDeck()
 {
-	if (deckSize <= 1) 
+	if (deckSize <= 1)
 		return;
 
 	for (int i = deckSize - 1; i > 0; i--) {
@@ -507,7 +507,7 @@ int applySpecialCardEffect(int playedBy, int& direction, int playersCount, char&
 
 bool handlePlayerChoice(int player, bool& cardPlayed, int currentPlayer, int direction, bool& wantsToQuit)
 {
-	
+
 	cout << "Choose index of card to play (or -1 to save and quit): ";
 	int chosenCard = readInt();
 
@@ -589,7 +589,7 @@ void saveGame(int currentPlayer, int direction)
 	}
 
 	file.close();
-	cout << "\n Game saved successfully! " << endl;
+	cout << "\nGame saved successfully! " << endl;
 }
 
 bool loadGame(int& currentPlayer, int& direction)
