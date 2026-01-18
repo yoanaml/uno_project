@@ -455,6 +455,34 @@ bool hasValidMove(int player)
     return false;
 }
 
+int applySpecialCardEffect(int playedBy, int& direction, int playersCount, char& currentColor)
+{
+    int skipCount = 0;
+
+    if (isPlus2(currentCard)) {
+        actionPlusTwo(playedBy, direction, playersCount);
+        skipCount = 1;
+    }
+    else if (isReverse(currentCard)) {
+        actionReverse(direction);
+        if (playersCount == 2) {
+            skipCount = 1;
+        }
+    }
+    else if (isSkip(currentCard)) {
+        skipCount = 1;
+    }
+    else if (isWildPlusFour(currentCard)) {
+        actionWildPlusFour(playedBy, direction, playersCount, currentColor);
+        skipCount = 1;
+    }
+    else if (isWild(currentCard)) {
+        actionWild(currentColor);
+    }
+
+    return skipCount;
+}
+
 
 int main()
 {
