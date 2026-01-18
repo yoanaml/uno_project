@@ -425,6 +425,7 @@ int getNextPlayer(int currentPlayer, int direction, int playersCount, int skipCo
     return next;
 }
 
+
 void checkUNO(int player)
 {
     if (cardsCount[player] != 1) {
@@ -444,6 +445,15 @@ void checkUNO(int player)
     drawCard(player);
 }
 
+bool hasValidMove(int player)
+{
+    for (int i = 0; i < cardsCount[player]; i++) {
+        if (isValidMove(players[player][i], currentCard, currentColor)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 
 int main()
