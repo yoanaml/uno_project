@@ -404,6 +404,15 @@ bool drawCardAndPlayOption(int player) {
     return false; 
 }
 
+int getNextPlayer(int currentPlayer, int direction, int playersCount, int skipCount = 0) {
+    int next = currentPlayer;
+    for (int i = 0; i <= skipCount; i++) {
+        next = (next + direction + playersCount) % playersCount;
+    }
+    return next;
+}
+
+
 
 
 int main()
