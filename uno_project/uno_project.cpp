@@ -31,6 +31,7 @@ const int MIN_PLAYERS = 2;
 const int MAX_PLAYERS = 4;
 const int COLOR_INDEX = 0;
 const int TYPE_INDEX = 1;
+const int MAX_VALUE_OF_INPUT = 10;
 const int COUNT_OF_CARDS_PER_PLAYER = 7;
 char currentColor = '\0';
 char deck[MAX_CARDS][MAX_CARD_LENGTH];
@@ -81,18 +82,20 @@ void strconcat(char* dest, const char* src) {
 	dest[i] = '\0';
 }
 
-bool isDigit(char c) {
-	return c >= '0' && c <= '9';
-}
-
-int readDigit() {
-	char symbol;
+int readInt() {
+	int number;
 	while (true) {
-		cin >> symbol;
-		if (isdigit(symbol)) {
-			return symbol - '0';
+		cin >> number;
+
+		if (cin.fail()) {  
+			cin.clear(); 
+			cin.ignore(1000, '\n');
+			cout << "Invalid input! Please enter a number: ";
 		}
-		cout << "Invalid input! Please enter a number: ";
+		else {
+			cin.ignore(1000, '\n'); 
+			return number;
+		}
 	}
 }
 
@@ -153,6 +156,8 @@ void createDeck() {
 
 void shuffleDeck()
 {
+	if (deckSize <= 1) 
+		return;
 
 	for (int i = deckSize - 1; i > 0; i--) {
 
@@ -345,7 +350,7 @@ void readPlayersCount()
 	do {
 		cout << "Enter number of players ("
 			<< MIN_PLAYERS << "-" << MAX_PLAYERS << "): ";
-		cin >> playersCount;
+		playersCount = readInt();
 
 		if (playersCount < MIN_PLAYERS || playersCount > MAX_PLAYERS) {
 			cout << "Invalid number of players. Try again.\n";
@@ -502,9 +507,9 @@ int applySpecialCardEffect(int playedBy, int& direction, int playersCount, char&
 
 bool handlePlayerChoice(int player, bool& cardPlayed, int currentPlayer, int direction, bool& wantsToQuit)
 {
-	int chosenCard;
+	
 	cout << "Choose index of card to play (or -1 to save and quit): ";
-	cin >> chosenCard;
+	int chosenCard = readInt();
 
 	if (chosenCard == -1) {
 		saveGame(currentPlayer, direction);
@@ -750,8 +755,7 @@ void runMainMenu()
 	while (true) {
 		displayMainMenu();
 
-		int choice;
-		cin >> choice;
+		int choice = readInt();
 
 		if (choice == 1) {
 			startNewGame();
