@@ -1,10 +1,10 @@
 // uno_project.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //Yoana Mladenova fn4MI0600631
 
-#include <iostream>
-#include <algorithm> 
-#include <random>    
+#include <iostream>  
 #include <ctime> 
+#include <algorithm> 
+#include <random>  
 #include <fstream>
 using namespace std;
 
@@ -49,7 +49,6 @@ void strcp(char* dest, const char* src) {
 	}
 	dest[i] = '\0';
 }
-
 void strconcat(char* dest, const char* src) {
 	int i = 0;
 	while (dest[i] != '\0') {
@@ -63,6 +62,19 @@ void strconcat(char* dest, const char* src) {
 	}
 
 	dest[i] = '\0';
+}
+bool isDigit(char c) {
+	return c >= '0' && c <= '9';
+}
+int readDigit() {
+	char symbol;
+	while (true) {
+		cin >> symbol;
+		if (isdigit(symbol)) {
+			return symbol - '0'; 
+		}
+		cout << "Invalid input! Please enter a number: ";
+	}
 }
 
 void createDeck() {
@@ -138,7 +150,7 @@ int isPlus2(const char* card) {
 	return card[1] == '+' && card[2] == '2';
 }
 int isReverse(const char* card) {
-	return card[1] == 'R'; // Reverse
+	return card[1] == 'R'; 
 }
 int isWild(const char* card)
 {
@@ -152,7 +164,6 @@ int isSkip(const char* card)
 {
 	return card[1] == 'S';
 }
-
 
 char currentCard[MAX_CARD_LENGTH];
 
@@ -249,10 +260,7 @@ void actionReverse(int& direction)
 {
 	direction *= -1;
 }
-void actionSkip(int currentPlayer, int direction, int playersCount, int& nextPlayer)
-{
-	nextPlayer = nextPlayerIndex(currentPlayer, direction, playersCount);
-}
+
 void actionPlusTwo(int currentPlayer, int direction, int playersCount)
 {
 	int next = nextPlayerIndex(currentPlayer, direction, playersCount);
@@ -271,13 +279,13 @@ char currentColor = '\0';
 
 void actionWild(char& currentColor)
 {
-	cout << "Choose color (R/G/B/Y): ";
+	cout << "Pick a color wisely (R/G/B/Y): ";
 	cin >> currentColor;
 
 
 	while (currentColor != 'R' && currentColor != 'G' &&
 		currentColor != 'B' && currentColor != 'Y') {
-		cout << "Invalid color! Choose (R/G/B/Y): ";
+		cout << "Oops! That's not a valid color. Choose (R/G/B/Y): ";
 		cin >> currentColor;
 	}
 }
@@ -503,12 +511,12 @@ bool handlePlayerChoice(int player, bool& cardPlayed, int currentPlayer, int dir
 			return true;
 		}
 		else {
-			cout << "Invalid move! Try again.\n";
+			cout << "Haha, nice try!That move won't work.! Try again\n";
 			return false;
 		}
 	}
 	else {
-		cout << "Invalid index! Try again.\n";
+		cout << "Haha, no such card!Try another index.\n";
 		return false;
 	}
 }
@@ -691,9 +699,9 @@ void displayMainMenu()
 	cout << "\n================================" << endl;
 	cout << "          UNO GAME" << endl;
 	cout << "================================" << endl;
-	cout << "1. New Game – Let's go! A brand new UNO adventure awaits you!" << endl;
-	cout << "2. Continue Saved Game – Pick up right where you left off." << endl;
-	cout << "3. Exit – Are you sure? You're about to miss all the fun!" << endl;
+	cout << "1. New Game: Let's go! A brand new UNO adventure awaits you!" << endl;
+	cout << "2. Continue Saved Game: Pick up right where you left off." << endl;
+	cout << "3. Exit: Are you sure? You're about to miss all the fun!" << endl;
 	cout << "================================" << endl;
 	cout << "Choose option: ";
 }
@@ -720,7 +728,7 @@ int main()
 
 			if (loadGame(currentPlayer, direction)) {
 				cout << "\n--- Resuming Saved Game ---\n" << endl;
-				cout << "\nGood luck!Have fun!\n";
+				cout << "\nGood luck! Have fun!\n";
 				cout << "It's Player " << currentPlayer + 1 << "'s turn\n" << endl;
 
 				bool gameOver = false;
