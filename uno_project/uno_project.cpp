@@ -570,7 +570,16 @@ void playTurn(int& currentPlayer, int& direction, bool& gameOver)
     currentPlayer = getNextPlayer(playedBy, direction, playersCount, skipCount);
 }
 
+void runGame()
+{
+    int currentPlayer = 0;
+    int direction = 1;
+    bool gameOver = false;
 
+    while (!gameOver) {
+        playTurn(currentPlayer, direction, gameOver);
+    }
+}
 
 
 int main()
