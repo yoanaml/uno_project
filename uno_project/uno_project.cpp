@@ -486,26 +486,33 @@ int applySpecialCardEffect(int playedBy, int& direction, int playersCount, char&
     return skipCount;
 }
 
-bool handlePlayerChoice(int player, bool& cardPlayed)
+bool handlePlayerChoice(int player, bool& cardPlayed, int currentPlayer, int direction, bool& wantsToQuit)
 {
     int chosenCard;
-    cout << "Choose index of card to play: ";
+    cout << "Choose index of card to play (or -1 to save and quit): ";
     cin >> chosenCard;
+
+    if (chosenCard == -1) {
+        saveGame(currentPlayer, direction);
+        cout << "Game saved! You can continue later from the main menu." << endl;
+        wantsToQuit = true;
+        return true;
+    }
 
     if (chosenCard >= 0 && chosenCard < cardsCount[player]) {
         if (isValidMove(players[player][chosenCard], currentCard, currentColor)) {
             playCard(player, chosenCard);
             cardPlayed = true;
-            return true; 
+            return true;
         }
         else {
             cout << "Invalid move! Try again.\n";
-            return false; 
+            return false;
         }
     }
     else {
         cout << "Invalid index! Try again.\n";
-        return false; 
+        return false;
     }
 }
 
@@ -543,17 +550,38 @@ void playTurn(int& currentPlayer, int& direction, bool& gameOver)
     printPlayerCards(currentPlayer);
 
     bool cardPlayed = false;
+    bool wantsToQuit = false;
 
-    
     if (!hasValidMove(currentPlayer)) {
         cout << "No valid moves. Drawing a card..." << endl;
+
+        char saveChoice;
+        cout << "Do you want to save before drawing? (y/n): ";
+        cin >> saveChoice;
+
+        if (saveChoice == 'y' || saveChoice == 'Y') {
+            saveGame(currentPlayer, direction);
+            cout << "Game saved! Continue playing? (y/n): ";
+            char continueChoice;
+            cin >> continueChoice;
+
+            if (continueChoice == 'n' || continueChoice == 'N') {
+                gameOver = true;
+                return;
+            }
+        }
+
         cardPlayed = drawCardAndPlayOption(currentPlayer);
     }
     else {
-       
         bool valid = false;
-        while (!valid) {
-            valid = handlePlayerChoice(currentPlayer, cardPlayed);
+        while (!valid && !wantsToQuit) {
+            valid = handlePlayerChoice(currentPlayer, cardPlayed, playedBy, direction, wantsToQuit);
+        }
+
+        if (wantsToQuit) {
+            gameOver = true;
+            return;
         }
     }
 
