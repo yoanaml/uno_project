@@ -527,6 +527,50 @@ bool checkForWinner(int player)
     return false;
 }
 
+void playTurn(int& currentPlayer, int& direction, bool& gameOver)
+{
+    int playedBy = currentPlayer;
+    int skipCount = 0;
+
+    if (isDeckEmpty()) {
+        refillDeckFromDiscard();
+    }
+
+    printCurrentCard(currentCard);
+    printPlayerCards(currentPlayer);
+
+    bool cardPlayed = false;
+
+    
+    if (!hasValidMove(currentPlayer)) {
+        cout << "No valid moves. Drawing a card..." << endl;
+        cardPlayed = drawCardAndPlayOption(currentPlayer);
+    }
+    else {
+       
+        bool valid = false;
+        while (!valid) {
+            valid = handlePlayerChoice(currentPlayer, cardPlayed);
+        }
+    }
+
+    if (!cardPlayed) {
+        currentPlayer = getNextPlayer(playedBy, direction, playersCount, skipCount);
+        return;
+    }
+
+    processCardEffects(playedBy, direction, skipCount);
+    checkUNO(playedBy);
+
+    if (checkForWinner(playedBy)) {
+        gameOver = true;
+        return;
+    }
+
+    currentPlayer = getNextPlayer(playedBy, direction, playersCount, skipCount);
+}
+
+
 
 
 int main()
