@@ -687,7 +687,17 @@ bool loadGame(int& currentPlayer, int& direction)
     return true;
 }
 
-
+void displayMainMenu()
+{
+    cout << "\n================================" << endl;
+    cout << "          UNO GAME" << endl;
+    cout << "================================" << endl;
+    cout << "1. New Game" << endl;
+    cout << "2. Continue Saved Game" << endl;
+    cout << "3. Exit" << endl;
+    cout << "================================" << endl;
+    cout << "Choose option: ";
+}
 
 
 int main()
