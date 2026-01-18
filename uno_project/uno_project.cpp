@@ -483,6 +483,29 @@ int applySpecialCardEffect(int playedBy, int& direction, int playersCount, char&
     return skipCount;
 }
 
+bool handlePlayerChoice(int player, bool& cardPlayed)
+{
+    int chosenCard;
+    cout << "Choose index of card to play: ";
+    cin >> chosenCard;
+
+    if (chosenCard >= 0 && chosenCard < cardsCount[player]) {
+        if (isValidMove(players[player][chosenCard], currentCard, currentColor)) {
+            playCard(player, chosenCard);
+            cardPlayed = true;
+            return true; 
+        }
+        else {
+            cout << "Invalid move! Try again.\n";
+            return false; 
+        }
+    }
+    else {
+        cout << "Invalid index! Try again.\n";
+        return false; 
+    }
+}
+
 
 int main()
 {
