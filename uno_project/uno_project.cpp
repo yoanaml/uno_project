@@ -423,12 +423,14 @@ void checkUNO(int player)
     cin >> unoCall;
 
     if (streq(unoCall, "UNO") || streq(unoCall, "uno")) {
+        cout << "UNO called successfully!" << endl;
         return;
     }
 
     cout << "You forgot to call UNO! Drawing 1 card as penalty." << endl;
     drawCard(player);
 }
+
 
 
 
