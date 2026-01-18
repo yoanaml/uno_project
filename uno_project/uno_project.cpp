@@ -5,6 +5,7 @@
 #include <algorithm> 
 #include <random>    
 #include <ctime> 
+#include <fstream>
 using namespace std;
 
 
@@ -14,7 +15,11 @@ const int COLORS_COUNT = 4;
 const int NUMBERS_COUNT = 10;
 const int INITIAL_DECK_SIZE = 108;
 const int WILD_CARDS_COUNT = 4;
-const int MAX_CARD_LENGTH = 10;
+const int MIN_PLAYERS = 2;
+const int MAX_PLAYERS = 4;
+
+
+
 
 char deck[MAX_CARDS][MAX_CARD_LENGTH];
 int deckSize = INITIAL_DECK_SIZE;
@@ -214,7 +219,7 @@ bool isValidMove(const char* card, const char* topCard, char currentColor)
     return false;
 }
 
-const int MAX_PLAYERS = 4;
+
 const int COUNT_OF_CARDS_PER_PLAYER = 7;
 char players[MAX_PLAYERS][MAX_CARDS][MAX_CARD_LENGTH]; 
 int cardsCount[MAX_PLAYERS];                           
@@ -319,8 +324,6 @@ void printCurrentCard(char* currentCard)
     }
 }
 
-const int MIN_PLAYERS = 2;
-const int MAX_PLAYERS = 4;
 
 void readPlayersCount()
 {
@@ -580,6 +583,43 @@ void runGame()
         playTurn(currentPlayer, direction, gameOver);
     }
 }
+
+void saveGame(int currentPlayer, int direction)
+{
+    ofstream file("uno_save.txt");
+
+    if (!file.is_open()) {
+        cout << "Error: Could not save game!" << endl;
+        return;
+    }
+
+    file << playersCount << endl;
+    file << currentPlayer << endl;
+    file << direction << endl;
+    file << currentColor << endl;
+    file << currentCard << endl;
+
+    file << deckSize << endl;
+    for (int i = 0; i < deckSize; i++) {
+        file << deck[i] << endl;
+    }
+
+    file << discardSize << endl;
+    for (int i = 0; i < discardSize; i++) {
+        file << discardPile[i] << endl;
+    }
+
+    for (int p = 0; p < playersCount; p++) {
+        file << cardsCount[p] << endl;
+        for (int c = 0; c < cardsCount[p]; c++) {
+            file << players[p][c] << endl;
+        }
+    }
+
+    file.close();
+    cout << "\n=== Game saved successfully! ===" << endl;
+}
+
 
 
 int main()
