@@ -412,6 +412,25 @@ int getNextPlayer(int currentPlayer, int direction, int playersCount, int skipCo
     return next;
 }
 
+void checkUNO(int player)
+{
+    if (cardsCount[player] != 1) {
+        return;
+    }
+
+    char unoCall[4];
+    cout << "Player " << player + 1 << ", type 'UNO' now: ";
+    cin >> unoCall;
+
+    if (streq(unoCall, "UNO") || streq(unoCall, "uno")) {
+        return;
+    }
+
+    cout << "You forgot to call UNO! Drawing 1 card as penalty." << endl;
+    drawCard(player);
+}
+
+
 
 
 
