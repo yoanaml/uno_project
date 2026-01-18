@@ -506,6 +506,17 @@ bool handlePlayerChoice(int player, bool& cardPlayed)
     }
 }
 
+void processCardEffects(int playedBy, int& direction, int& skipCount)
+{
+
+    if (!isWild(currentCard) && !isWildPlusFour(currentCard))
+    {
+        currentColor = '\0';
+    }
+
+    skipCount = applySpecialCardEffect(playedBy, direction, playersCount, currentColor);
+}
+
 
 int main()
 {
