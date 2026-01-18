@@ -377,6 +377,34 @@ void playCard(int player, int cardIndex) {
     cardsCount[player]--;
 }
 
+bool drawCardAndPlayOption(int player) {
+    drawCard(player); 
+
+    int drawnIndex = cardsCount[player] - 1;
+
+   
+    if (isValidMove(players[player][drawnIndex], currentCard, currentColor)) {
+        char choice;
+        cout << "You can play this card. Play it now? (y/n): ";
+        cin >> choice;
+
+        if (choice == 'y' || choice == 'Y') {
+            
+            strcp(currentCard, players[player][drawnIndex]);
+            strcp(discardPile[discardSize], currentCard);
+            discardSize++;
+
+          
+            cardsCount[player]--;
+
+            return true; 
+        }
+    }
+
+    return false; 
+}
+
+
 
 int main()
 {
