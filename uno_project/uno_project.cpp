@@ -1,5 +1,18 @@
-// uno_project.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//Yoana Mladenova fn4MI0600631
+/**
+*
+* Solution to course project # 4
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2025/2026
+*
+* @author Yoana Mladenova
+* @idnumber 4MI0600631
+* @compiler VC
+*
+* <Main implementation file for the UNO game, containing the complete game logic and player interactions.>
+*
+*/
+
 
 #include <iostream>  
 #include <ctime> 
@@ -7,7 +20,6 @@
 #include <random>  
 #include <fstream>
 using namespace std;
-
 
 const int MAX_CARDS = 108;
 const int MAX_CARD_LENGTH = 10;
@@ -19,16 +31,20 @@ const int MIN_PLAYERS = 2;
 const int MAX_PLAYERS = 4;
 const int COLOR_INDEX = 0;
 const int TYPE_INDEX = 1;
+const int COUNT_OF_CARDS_PER_PLAYER = 7;
+char currentColor = '\0';
+char deck[MAX_CARDS][MAX_CARD_LENGTH];
+int deckSize = INITIAL_DECK_SIZE;
+char discardPile[MAX_CARDS][MAX_CARD_LENGTH];
+int discardSize = 0;
+char currentCard[MAX_CARD_LENGTH];
+char players[MAX_PLAYERS][MAX_CARDS][MAX_CARD_LENGTH];
+int cardsCount[MAX_PLAYERS];
+int playersCount;
+
 
 void saveGame(int currentPlayer, int direction);
 bool loadGame(int& currentPlayer, int& direction);
-
-
-char deck[MAX_CARDS][MAX_CARD_LENGTH];
-int deckSize = INITIAL_DECK_SIZE;
-
-char discardPile[MAX_CARDS][MAX_CARD_LENGTH];
-int discardSize = 0;
 
 int streq(const char* a, const char* b) {
 	int i = 0;
@@ -49,6 +65,7 @@ void strcp(char* dest, const char* src) {
 	}
 	dest[i] = '\0';
 }
+
 void strconcat(char* dest, const char* src) {
 	int i = 0;
 	while (dest[i] != '\0') {
@@ -63,15 +80,17 @@ void strconcat(char* dest, const char* src) {
 
 	dest[i] = '\0';
 }
+
 bool isDigit(char c) {
 	return c >= '0' && c <= '9';
 }
+
 int readDigit() {
 	char symbol;
 	while (true) {
 		cin >> symbol;
 		if (isdigit(symbol)) {
-			return symbol - '0'; 
+			return symbol - '0';
 		}
 		cout << "Invalid input! Please enter a number: ";
 	}
@@ -136,7 +155,7 @@ void shuffleDeck()
 {
 
 	for (int i = deckSize - 1; i > 0; i--) {
-		
+
 		int j = rand() % (i + 1);
 		char temp[MAX_CARD_LENGTH];
 		strcp(temp, deck[i]);
@@ -145,27 +164,28 @@ void shuffleDeck()
 	}
 }
 
-
 int isPlus2(const char* card) {
 	return card[1] == '+' && card[2] == '2';
 }
+
 int isReverse(const char* card) {
-	return card[1] == 'R'; 
+	return card[1] == 'R';
 }
+
 int isWild(const char* card)
 {
 	return streq(card, "Wild");
 }
+
 int isWildPlusFour(const char* card)
 {
 	return streq(card, "Wild+4");
 }
+
 int isSkip(const char* card)
 {
 	return card[1] == 'S';
 }
-
-char currentCard[MAX_CARD_LENGTH];
 
 void drawStartingCard()
 {
@@ -188,8 +208,6 @@ void drawStartingCard()
 		}
 	}
 }
-
-
 
 bool isValidMove(const char* card, const char* topCard, char currentColor)
 {
@@ -226,12 +244,6 @@ bool isValidMove(const char* card, const char* topCard, char currentColor)
 
 	return false;
 }
-
-
-const int COUNT_OF_CARDS_PER_PLAYER = 7;
-char players[MAX_PLAYERS][MAX_CARDS][MAX_CARD_LENGTH];
-int cardsCount[MAX_PLAYERS];
-int playersCount;
 
 void dealCards(int playersCount)
 {
@@ -275,8 +287,6 @@ void actionPlusTwo(int currentPlayer, int direction, int playersCount)
 
 }
 
-char currentColor = '\0';
-
 void actionWild(char& currentColor)
 {
 	cout << "Pick a color wisely (R/G/B/Y): ";
@@ -319,6 +329,7 @@ void printPlayerCards(int player)
 	}
 	cout << endl;
 }
+
 void printCurrentCard(char* currentCard)
 {
 	cout << "\n---UNO---";
@@ -328,7 +339,6 @@ void printCurrentCard(char* currentCard)
 		cout << "Current color (from Wild): " << currentColor << endl;
 	}
 }
-
 
 void readPlayersCount()
 {
@@ -343,6 +353,7 @@ void readPlayersCount()
 
 	} while (playersCount < MIN_PLAYERS || playersCount > MAX_PLAYERS);
 }
+
 void setupGame()
 {
 	readPlayersCount();
@@ -351,7 +362,6 @@ void setupGame()
 	dealCards(playersCount);
 	drawStartingCard();
 }
-
 
 bool isDeckEmpty() {
 	return deckSize == 0;
@@ -432,7 +442,6 @@ int getNextPlayer(int currentPlayer, int direction, int playersCount, int skipCo
 	}
 	return next;
 }
-
 
 void checkUNO(int player)
 {
@@ -577,6 +586,7 @@ void saveGame(int currentPlayer, int direction)
 	file.close();
 	cout << "\n Game saved successfully! " << endl;
 }
+
 bool loadGame(int& currentPlayer, int& direction)
 {
 	ifstream file("uno_save.txt");
@@ -616,7 +626,6 @@ bool loadGame(int& currentPlayer, int& direction)
 	cout << "\n  Game loaded successfully! " << endl;
 	return true;
 }
-
 
 void playTurn(int& currentPlayer, int& direction, bool& gameOver)
 {
@@ -692,7 +701,6 @@ void runGame()
 		playTurn(currentPlayer, direction, gameOver);
 	}
 }
-
 
 void displayMainMenu()
 {
