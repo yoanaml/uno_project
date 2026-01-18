@@ -702,8 +702,45 @@ void displayMainMenu()
 
 int main()
 {
-    setupGame();
-    runGame();
+    while (true) {
+        displayMainMenu();
+
+        int choice;
+        cin >> choice;
+
+        if (choice == 1) {
+            cout << "\n--- Starting New Game ---\n" << endl;
+            cout << "Let's start the new UNO adventure! It will be fun, I promise\n";
+            setupGame();
+            runGame();
+        }
+        else if (choice == 2) {
+            int currentPlayer = 0;
+            int direction = 1;
+
+            if (loadGame(currentPlayer, direction)) {
+                cout << "\n--- Resuming Saved Game ---\n" << endl;
+                cout << "\nGood luck!Have fun!\n";
+                cout << "It's Player " << currentPlayer + 1 << "'s turn\n" << endl;
+
+                bool gameOver = false;
+                while (!gameOver) {
+                    playTurn(currentPlayer, direction, gameOver);
+                }
+            }
+            else {
+                cout << "\nOops! No saved game found. Let's start a new adventure!\n" << endl;
+            }
+        }
+        else if (choice == 3) {
+            cout << "\nThanks for playing UNO! Hope to see you again soon! Goodbye!\n" << endl;
+            break;
+        }
+        else {
+            cout << "\nInvalid choice! Don't worry, just pick 1, 2, or 3 and let's play!\n" << endl;
+        }
+    }
+
     return 0;
 }
 
