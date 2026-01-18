@@ -8,13 +8,16 @@
 Добре дошли в **UNO** – конзолната версия на класическата игра с карти, реализирана на **C++**! 
 
 Малко повече за проекта: 
+
 <img width="50" height="30" alt="image" src="https://github.com/user-attachments/assets/3b2ad073-5c25-429d-8cc9-58fc395a8179" />
 
 - Поддържа **2–4 играча**  
 - Класически **UNO карти**:
   - Числови: 0–9          
  - Специални: `+2`, `Skip`, `Reverse`, `Wild`, `Wild+4`
-  <img width="59" height="59" alt="image" src="https://github.com/user-attachments/assets/054ca247-56c9-404d-ae3e-b1b074202bac" />
+
+<img width="300" height="300" alt="image" src="https://github.com/user-attachments/assets/054ca247-56c9-404d-ae3e-b1b074202bac" />
+
 - **Интерактивно меню**:
   1. New Game – започва нова игра  
   2. Continue Saved Game – зарежда последната запазена игра  
