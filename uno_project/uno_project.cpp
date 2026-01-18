@@ -271,6 +271,13 @@ void actionWild(char& currentColor)
 {
     cout << "Choose color (R/G/B/Y): ";
     cin >> currentColor;
+
+   
+    while (currentColor != 'R' && currentColor != 'G' &&
+        currentColor != 'B' && currentColor != 'Y') {
+        cout << "Invalid color! Choose (R/G/B/Y): ";
+        cin >> currentColor;
+    }
 }
 void actionWildPlusFour(int currentPlayer, int direction, int playersCount, char& currentColor)
 {
@@ -285,6 +292,12 @@ void actionWildPlusFour(int currentPlayer, int direction, int playersCount, char
 
     cout << "Choose color (R/G/B/Y): ";
     cin >> currentColor;
+
+    while (currentColor != 'R' && currentColor != 'G' &&
+        currentColor != 'B' && currentColor != 'Y') {
+        cout << "Invalid color! Choose (R/G/B/Y): ";
+        cin >> currentColor;
+    }
 }
 
 void printPlayerCards(int player) //играча на позиция  0,1,2,3
@@ -433,12 +446,9 @@ void checkUNO(int player)
 
 
 
-
-
-
 int main()
 {
-   
+    
 }
 
 
