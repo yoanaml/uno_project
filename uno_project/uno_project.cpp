@@ -122,15 +122,10 @@ void createDeck() {
 
 void shuffleDeck()
 {
-	random_device rd;
-	mt19937 g(rd());
-
 
 	for (int i = deckSize - 1; i > 0; i--) {
-		uniform_int_distribution<int> dist(0, i);
-		int j = dist(g);
-
-
+		
+		int j = rand() % (i + 1);
 		char temp[MAX_CARD_LENGTH];
 		strcp(temp, deck[i]);
 		strcp(deck[i], deck[j]);
@@ -533,7 +528,7 @@ bool checkForWinner(int player)
 {
 	if (cardsCount[player] == 0) {
 		cout << "Player " << player + 1 << " wins!" << endl;
-		cout << "Thanks for playing!";
+		cout << "Thanks for playing! Hope you enjoyed the game!" << endl;
 		return true;
 	}
 	return false;
@@ -631,7 +626,7 @@ void playTurn(int& currentPlayer, int& direction, bool& gameOver)
 	bool wantsToQuit = false;
 
 	if (!hasValidMove(currentPlayer)) {
-		cout << "No valid moves. Drawing a card..." << endl;
+		cout << "No valid moves! Drawing a card for you... Better luck next time!" << endl;
 
 		char saveChoice;
 		cout << "Do you want to save before drawing? (y/n): ";
@@ -696,9 +691,9 @@ void displayMainMenu()
 	cout << "\n================================" << endl;
 	cout << "          UNO GAME" << endl;
 	cout << "================================" << endl;
-	cout << "1. New Game" << endl;
-	cout << "2. Continue Saved Game" << endl;
-	cout << "3. Exit" << endl;
+	cout << "1. New Game – Let's go! A brand new UNO adventure awaits you!" << endl;
+	cout << "2. Continue Saved Game – Pick up right where you left off." << endl;
+	cout << "3. Exit – Are you sure? You're about to miss all the fun!" << endl;
 	cout << "================================" << endl;
 	cout << "Choose option: ";
 }
@@ -706,6 +701,7 @@ void displayMainMenu()
 
 int main()
 {
+	srand((unsigned)time(NULL));
 	while (true) {
 		displayMainMenu();
 
