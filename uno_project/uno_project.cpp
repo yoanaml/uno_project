@@ -517,6 +517,17 @@ void processCardEffects(int playedBy, int& direction, int& skipCount)
     skipCount = applySpecialCardEffect(playedBy, direction, playersCount, currentColor);
 }
 
+bool checkForWinner(int player)
+{
+    if (cardsCount[player] == 0) {
+        cout << "Player " << player + 1 << " wins!" << endl;
+        cout << "Thanks for playing!";
+        return true;
+    }
+    return false;
+}
+
+
 
 int main()
 {
