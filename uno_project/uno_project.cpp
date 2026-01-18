@@ -617,8 +617,48 @@ void saveGame(int currentPlayer, int direction)
     }
 
     file.close();
-    cout << "\n=== Game saved successfully! ===" << endl;
+    cout << "\n Game saved successfully! " << endl;
 }
+bool loadGame(int& currentPlayer, int& direction)
+{
+    ifstream file("uno_save.txt");
+
+    if (!file.is_open()) {
+        return false;
+    }
+
+    file >> playersCount;
+    file >> currentPlayer;
+    file >> direction;
+    file >> currentColor;
+    file.ignore();
+    file.getline(currentCard, MAX_CARD_LENGTH);
+
+    file >> deckSize;
+    file.ignore();
+    for (int i = 0; i < deckSize; i++) {
+        file.getline(deck[i], MAX_CARD_LENGTH);
+    }
+
+    file >> discardSize;
+    file.ignore();
+    for (int i = 0; i < discardSize; i++) {
+        file.getline(discardPile[i], MAX_CARD_LENGTH);
+    }
+
+    for (int p = 0; p < playersCount; p++) {
+        file >> cardsCount[p];
+        file.ignore();
+        for (int c = 0; c < cardsCount[p]; c++) {
+            file.getline(players[p][c], MAX_CARD_LENGTH);
+        }
+    }
+
+    file.close();
+    cout << "\n  Game loaded successfully! " << endl;
+    return true;
+}
+
 
 
 
